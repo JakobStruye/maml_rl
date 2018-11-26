@@ -81,7 +81,7 @@ for v in variants:
         max_path_length=max_path_length,
         meta_batch_size=v['meta_batch_size'],
         num_grad_updates=num_grad_updates,
-        n_itr=800,
+        n_itr=4,
         use_maml=use_maml,
         step_size=v['meta_step_size'],
         plot=False,
@@ -92,10 +92,10 @@ for v in variants:
         exp_prefix='posticml_trpo_maml_ant' + task_var + '_' + str(max_path_length),
         exp_name='maml'+str(int(use_maml))+'_fbs'+str(v['fast_batch_size'])+'_mbs'+str(v['meta_batch_size'])+'_flr_' + str(v['fast_lr'])  + '_mlr' + str(v['meta_step_size']),
         # Number of parallel workers for sampling
-        n_parallel=8,
+        n_parallel=4,
         # Only keep the snapshot parameters for the last iteration
-        snapshot_mode="gap",
-        snapshot_gap=25,
+        snapshot_mode="all",
+        snapshot_gap=1,
         sync_s3_pkl=True,
         # Specifies the seed for the experiment. If this is not provided, a random seed
         # will be used

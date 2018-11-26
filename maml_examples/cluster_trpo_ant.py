@@ -66,6 +66,7 @@ for v in variants:
         else:
             env = TfEnv(normalize(AntEnvRand()))
     elif task_var == 2:
+        print("HERE")
         task_var = 'pos'
         exp_prefix = 'posticml_trpo_maml_antpos_' + str(max_path_length)
         if oracle:

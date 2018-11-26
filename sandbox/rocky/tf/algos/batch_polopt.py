@@ -105,7 +105,7 @@ class BatchPolopt(RLAlgorithm):
 
     def train(self):
         with tf.Session() as sess:
-            if self.load_policy is not None:
+            if self.load_policy is not None:# and False:
                 import joblib
                 self.policy = joblib.load(self.load_policy)['policy']
             self.init_opt()

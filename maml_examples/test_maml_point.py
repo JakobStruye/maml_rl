@@ -1,7 +1,6 @@
 from maml_examples.point_env_randgoal import PointEnvRandGoal
 from maml_examples.point_env_randgoal_oracle import PointEnvRandGoalOracle
 from rllab.baselines.linear_feature_baseline import LinearFeatureBaseline
-from rllab.envs.mujoco.walker2d_env import Walker2DEnv
 from rllab.envs.normalized_env import normalize
 from rllab.misc.instrument import stub, run_experiment_lite
 from sandbox.rocky.tf.algos.vpg import VPG
@@ -33,7 +32,8 @@ goals = [goals[6]]
 
 # ICML values
 step_sizes = [0.5, 0.5, 0.5,0.0, 0.5]
-initial_params_files = [initial_params_file1, initial_params_file3, None,initial_params_file4]
+#initial_params_files = [initial_params_file1, initial_params_file3, None,initial_params_file4]
+initial_params_files = [None]
 gen_name = 'icml_point_results_'
 names = ['maml','maml0','random','oracle']
 

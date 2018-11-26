@@ -17,11 +17,11 @@ import tensorflow as tf
 
 stub(globals())
 
-file1 = 'data/s3/posticml-trpo-maml-ant200/maml1_fbs20_mbs40_flr_0.1_mlr0.01/itr_375.pkl'
+file1 = 'data/local/posticml-trpo-maml-antpos-200/maml1_fbs20_mbs40_flr_0.1_mlr0.01/itr_1.pkl'
 file2 = 'data/s3/posticml-trpo-maml-ant200/randenv100traj/itr_575.pkl'
 file3 = 'data/s3/posticml-trpo-maml-ant200/oracleenv100traj/itr_550.pkl'
 
-make_video = False  # generate results if False, run code to make video if True
+make_video = True  # generate results if False, run code to make video if True
 run_id = 1  # for if you want to run this script in multiple terminals (need to have different ids for each run)
 
 if not make_video:
@@ -37,11 +37,11 @@ print(goals)
 
 
 gen_name = 'icml_ant_results_'
-names = ['maml','pretrain','random', 'oracle']
+names = ['maml',]#'pretrain','random', 'oracle']
 exp_names = [gen_name + name for name in names]
 
 step_sizes = [0.1, 0.2, 1.0, 0.0]
-initial_params_files = [file1, file2, None, file3]
+initial_params_files = [file1]#, file2, None, file3]
 
 
 all_avg_returns = []
@@ -80,7 +80,7 @@ for step_i, initial_params_file in zip(range(len(step_sizes)), initial_params_fi
             optimizer_args={'init_learning_rate': step_sizes[step_i], 'tf_optimizer_args': {'learning_rate': 0.5*step_sizes[step_i]}, 'tf_optimizer_cls': tf.train.GradientDescentOptimizer}
         )
 
-
+        print("RUNLITE")
         run_experiment_lite(
             algo.train(),
             # Number of parallel workers for sampling
@@ -94,6 +94,7 @@ for step_i, initial_params_file in zip(range(len(step_sizes)), initial_params_fi
             exp_name='test' + str(run_id),
             #plot=True,
         )
+        print("RANLITE")
 
 
 
@@ -113,12 +114,13 @@ for step_i, initial_params_file in zip(range(len(step_sizes)), initial_params_fi
 
         if make_video:
             data_loc = 'data/local/ant-test-posticml/test'+str(run_id)+'/'
-            save_loc = 'data/local/ant-test-posticml/test/'
+            save_loc = 'data/local/ant-test-posticml/test'+str(run_id)+'/'
             param_file = initial_params_file
             save_prefix = save_loc + names[step_i] + '_goal_' + str(goal)
-            video_filename = save_prefix + 'prestep.' + file_ext
-            os.system('python scripts/sim_policy.py ' + param_file + ' --speedup=4 --max_path_length=300 --video_filename='+video_filename)
-            for itr_i in range(3):
+            if param_file is not None:
+                video_filename = save_prefix + 'prestep.' + file_ext
+                os.system('python scripts/sim_policy.py ' + param_file + ' --speedup=4 --max_path_length=300 --video_filename='+video_filename)
+            for itr_i in range(2):
                 param_file = data_loc + 'itr_' + str(itr_i)  + '.pkl'
                 video_filename = save_prefix + 'step_'+str(itr_i)+'.'+file_ext
                 os.system('python scripts/sim_policy.py ' + param_file + ' --speedup=4 --max_path_length=300 --video_filename='+video_filename)

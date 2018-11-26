@@ -24,6 +24,7 @@ class VPG(BatchPolopt, Serializable):
             optimizer_args=None,
             **kwargs):
         Serializable.quick_init(self, locals())
+        print("POL", policy)
         if optimizer is None:
             default_args = dict(
                 batch_size=None,

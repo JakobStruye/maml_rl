@@ -441,7 +441,7 @@ def run_experiment_lite(
             env = task.pop("env", None)
             command = to_local_command(
                 task, python_command=python_command, script=osp.join(config.PROJECT_PATH, script), use_gpu=use_gpu)
-            print(command)
+            print("THE COMMAND IS", command)
             if dry:
                 return
             try:

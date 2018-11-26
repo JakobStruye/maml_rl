@@ -45,6 +45,8 @@ class BatchSampler(BaseSampler):
         start = time.time()
         if type(reset_args) != list and type(reset_args)!=np.ndarray:
             reset_args = [reset_args]*self.n_envs
+        import inspect
+        print("PRINTING", inspect.getfile(type(self.algo.policy)))
         if self.algo.policy.all_param_vals:
             cur_policy_params = [flatten_tensors(x.values()) for x in self.algo.policy.all_param_vals]
         else:

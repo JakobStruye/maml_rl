@@ -36,7 +36,6 @@ def rollout(env, agent, max_path_length=np.inf, animated=False, speedup=1, save_
                 image = env.wrapped_env.wrapped_env.get_viewer().get_image()
                 pil_image = Image.frombytes('RGB', (image[1], image[2]), image[0])
                 images.append(np.flipud(np.array(pil_image)))
-
     if animated:
         if save_video and len(images) >= max_path_length:
             import moviepy.editor as mpy

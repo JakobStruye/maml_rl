@@ -65,6 +65,7 @@ class GaussianMLPPolicy(StochasticPolicy, Serializable):
             - softplus: the std will be computed as log(1+exp(x))
         :return:
         """
+        self.all_param_vals = None
         Serializable.quick_init(self, locals())
         assert isinstance(env_spec.action_space, Box)
 

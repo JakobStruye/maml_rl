@@ -52,6 +52,7 @@ class GaussianMLPPolicy(StochasticPolicy, LayersPowered, Serializable):
             - softplus: the std will be computed as log(1+exp(x))
         :return:
         """
+        self.all_param_vals = None
         Serializable.quick_init(self, locals())
         assert isinstance(env_spec.action_space, Box)
 
@@ -138,6 +139,7 @@ class GaussianMLPPolicy(StochasticPolicy, LayersPowered, Serializable):
                 inputs=[obs_var],
                 outputs=[mean_var, log_std_var],
             )
+            self.all_param_vals = None
 
     @property
     def vectorized(self):

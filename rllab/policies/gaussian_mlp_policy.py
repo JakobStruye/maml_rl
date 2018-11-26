@@ -51,6 +51,7 @@ class GaussianMLPPolicy(StochasticPolicy, LasagnePowered, Serializable):
         :param std_network: custom network for the output log std
         :return:
         """
+        self.all_param_vals = None
         Serializable.quick_init(self, locals())
         assert isinstance(env_spec.action_space, Box)
 
